@@ -6,7 +6,20 @@
                      [org.postgresql/postgresql           "42.2.2.jre7"]
                      [net.mikera/core.matrix              "0.62.0"]
                      [net.mikera/vectorz-clj              "0.47.0"]
-                     [sig-gis/magellan                    "0.1.0"]
+
+                     ;; [sig-gis/magellan                    "0.1.0"]
+
+                     [org.geotools/gt-shapefile "21.2"]
+                     [org.geotools/gt-swing     "21.2"]
+                     [org.geotools/gt-epsg-hsql "21.2"]
+                     [org.geotools/gt-geotiff   "21.2"]
+                     [org.geotools/gt-image     "21.2"]
+                     [org.geotools/gt-wms       "21.2"]
+                     [org.geotools/gt-coverage  "21.2"]
+                     [prismatic/schema          "1.0.4"]
+
+                     ;;
+
                      [org.clojars.lambdatronic/matrix-viz "0.1.7"]]
   :repositories     [["java.net"  "http://download.java.net/maven/2"]
                      ["osgeo.org" "http://download.osgeo.org/webdav/geotools/"]]

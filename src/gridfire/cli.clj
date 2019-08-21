@@ -8,8 +8,8 @@
             [gridfire.surface-fire :refer [degrees-to-radians]]
             [gridfire.fire-spread :refer [run-fire-spread]]
             [matrix-viz.core :refer [save-matrix-as-png]]
-            [magellan.core :refer [register-new-crs-definitions-from-properties-file!
-                                   make-envelope matrix-to-raster write-raster]])
+            [gridfire.magellan :refer [register-new-crs-definitions-from-properties-file!
+                                       make-envelope matrix-to-raster write-raster]])
   (:import (java.util Random)))
 
 (m/set-current-implementation :vectorz)
