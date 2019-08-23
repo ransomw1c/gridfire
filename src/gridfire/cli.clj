@@ -198,15 +198,9 @@
           :fire-line-intensity-stddev 0.0}))))
 
 (defn run-simulations
-  [simulations landfire-rasters envelope cell-size ignition-row
-   ignition-col max-runtime temperature relative-humidity wind-speed-20ft
-   wind-from-direction foliar-moisture ellipse-adjustment-factor
-   outfile-suffix output-geotiffs? output-pngs? output-csvs?]
-  (let [run-sim (partial run-simulation
-                         simulations landfire-rasters envelope cell-size ignition-row
-                         ignition-col max-runtime temperature relative-humidity wind-speed-20ft
-                         wind-from-direction foliar-moisture ellipse-adjustment-factor
-                         outfile-suffix output-geotiffs? output-pngs? output-csvs?)
+  [ & args ]
+  (let [run-sim (apply partial (conj args run-simulation))
+        simulations (first args)
         pool (Executors/newFixedThreadPool simulations)
         tasks (map
                (fn [i] #(run-sim i))
