@@ -10,7 +10,8 @@
             [matrix-viz.core :refer [save-matrix-as-png]]
             [gridfire.magellan :refer [register-new-crs-definitions-from-properties-file!
                                        make-envelope matrix-to-raster write-raster]])
-  (:import (java.util Random)))
+  (:import (java.util Random)
+           (java.util.concurrent Executors)))
 
 (m/set-current-implementation :vectorz)
 
@@ -205,10 +206,14 @@
                          simulations landfire-rasters envelope cell-size ignition-row
                          ignition-col max-runtime temperature relative-humidity wind-speed-20ft
                          wind-from-direction foliar-moisture ellipse-adjustment-factor
-                         outfile-suffix output-geotiffs? output-pngs? output-csvs?)]
-    (mapv
-     run-sim
-     (range simulations))))
+                         outfile-suffix output-geotiffs? output-pngs? output-csvs?)
+        pool (Executors/newFixedThreadPool simulations)
+        tasks (map
+               (fn [i] #(run-sim i))
+               (range simulations))]
+    (let [ret (.invokeAll pool tasks)]
+      (.shutdown pool)
+      (map #(.get %) ret))))
 
 (defn write-csv-outputs
   [output-csvs? output-filename results-table]
